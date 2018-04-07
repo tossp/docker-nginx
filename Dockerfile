@@ -1,7 +1,7 @@
 FROM alpine:edge
 
 LABEL maintainer="TossPig <docker@TossP.com>" \
-      version="1.0.0" \
+      version="1.0.1" \
       description="nginx服务"
 
 ENV TIMEZONE Asia/Shanghai
