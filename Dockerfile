@@ -1,7 +1,7 @@
 FROM alpine:edge
 
 LABEL maintainer="TossPig <docker@TossP.com>" \
-      version="1.0.1" \
+      version="1.0.2" \
       description="nginx服务"
 
 ENV TIMEZONE Asia/Shanghai
@@ -19,6 +19,7 @@ RUN apk update && \
 	
 	# 群晖HTTP用户信息
 	adduser  -u 1023 -D -H -k /sbin/nologin http && \
+	adduser  -u 994 -D -H -k /sbin/nologin httpyss && \
 	echo '#!/bin/sh' > /ENTRYPOINT.sh  && \
 	echo 'cp -rf /etc/nginx/* /def_conf' >> /ENTRYPOINT.sh  && \
 	echo 'nginx -c /conf/nginx.conf -t' >> /ENTRYPOINT.sh && \
