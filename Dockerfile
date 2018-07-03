@@ -22,6 +22,7 @@ RUN apk update && \
 	adduser  -u 994 -D -H -k /sbin/nologin httpyss && \
 	echo '#!/bin/sh' > /ENTRYPOINT.sh  && \
 	echo 'cp -rf /etc/nginx/* /def_conf' >> /ENTRYPOINT.sh  && \
+	echo 'nginx -V' >> /ENTRYPOINT.sh && \
 	echo 'nginx -c /conf/nginx.conf -t' >> /ENTRYPOINT.sh && \
 	echo 'nginx -c /conf/nginx.conf' >> /ENTRYPOINT.sh && \
 	#cat /ENTRYPOINT.sh  && \
