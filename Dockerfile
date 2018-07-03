@@ -1,7 +1,7 @@
 FROM alpine:edge
 
 LABEL maintainer="TossPig <docker@TossP.com>" \
-      version="1.4.0" \
+      version="1.4.1" \
       description="nginx服务"
 
 ENV TIMEZONE Asia/Shanghai
@@ -32,7 +32,7 @@ RUN apk update &&  apk upgrade && \
 		nginx-mod-mail \
 		nginx-mod-stream \
 		nginx-mod-stream-geoip \
-		nginx-mod-stream-js
+		nginx-mod-stream-js && \
 	cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
 	echo "${TIMEZONE}" > /etc/timezone && \
 	mkdir -p /run/nginx && \
