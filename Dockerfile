@@ -1,21 +1,43 @@
 FROM alpine:edge
 
 LABEL maintainer="TossPig <docker@TossP.com>" \
-      version="1.0.2" \
+      version="1.4.0" \
       description="nginx服务"
 
 ENV TIMEZONE Asia/Shanghai
 
 # RUN echo -e "http://mirrors.aliyun.com/alpine/edge/main/\nhttp://mirrors.aliyun.com/alpine/edge/community/" > /etc/apk/repositories
-RUN apk update && \
-    apk upgrade && \ 
-	apk add openssl nginx && \
-	apk add tzdata && \
+RUN apk update &&  apk upgrade && \ 
+	apk add --no-cache tzdata && \
+	apk add --no-cache --virtual web_tools nginx \
+	        nginx-mod-http-vod \
+	        nginx-mod-http-cache-purge \
+		nginx-mod-http-echo \
+	        nginx-mod-http-fancyindex \
+		nginx-mod-http-headers-more \
+		nginx-mod-http-lua \
+		nginx-mod-http-lua-upstream \
+		nginx-mod-http-nchan \
+		nginx-mod-http-redis2 \
+		nginx-mod-http-set-misc \
+		nginx-mod-http-shibboleth \
+		nginx-mod-http-upload-progress \
+		nginx-mod-http-upstream-fair \
+		nginx-mod-rtmp \
+		nginx-mod-http-geoip \
+		nginx-mod-http-image-filter \
+		nginx-mod-http-js \
+		nginx-mod-http-perl \				
+		nginx-mod-http-xslt-filter \
+		nginx-mod-mail \
+		nginx-mod-stream \
+		nginx-mod-stream-geoip \
+		nginx-mod-stream-js
 	cp /usr/share/zoneinfo/${TIMEZONE} /etc/localtime && \
 	echo "${TIMEZONE}" > /etc/timezone && \
 	mkdir -p /run/nginx && \
 	apk del tzdata && \
-    rm -rf /var/cache/apk/* && \
+	rm -rf /var/cache/apk/* && \
 	
 	# 群晖HTTP用户信息
 	adduser  -u 1023 -D -H -k /sbin/nologin http && \
